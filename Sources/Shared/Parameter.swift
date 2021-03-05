@@ -236,7 +236,7 @@ public extension Parameter where ValueType: GenericAttributeType {
         switch (lhs, rhs) {
         case (._, _): return true
         case (_, ._): return true
-        case (.value(let lhsGeneric), .value(let rhsGeneric)): return lhsGeneric.compare(lhsGeneric.value,rhsGeneric.value,matcher)
+        case (.value(let lhsGeneric), .value(let rhsGeneric)): return lhsGeneric.compare(lhsGeneric.value,rhsGeneric.value,matcher,nil)
         default: return false
         }
     }

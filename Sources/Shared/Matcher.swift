@@ -17,7 +17,7 @@ public class Matcher {
     public init() {
         registerBasicTypes()
         register(GenericAttribute.self) { [unowned self] (a, b) -> Bool in
-            return a.compare(a.value,b.value,self)
+            return a.compare(a.value,b.value,self,true)
         }
     }
 

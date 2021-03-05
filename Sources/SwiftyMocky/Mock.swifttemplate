@@ -259,6 +259,10 @@ class Helpers {
         .joined(separator: " ")
     }
 }
+enum ParamCaptureType {
+    case capturing
+    case noncapturing
+}
 class ParameterWrapper {
     let parameter: MethodParameter
 
@@ -298,10 +302,40 @@ class ParameterWrapper {
     var comparator: String {
         return "guard Parameter.compare(lhs: lhs\(parameter.name.capitalized), rhs: rhs\(parameter.name.capitalized), with: matcher) else { return false }"
     }
-    func comparatorResult() -> String {
+    func comparatorResult(indentation: String, _ captureType: ParamCaptureType) -> String {
         let lhsName = "lhs\(parameter.name.capitalized)"
         let rhsName = "rhs\(parameter.name.capitalized)"
-        return "results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: \(lhsName), rhs: \(rhsName), with: matcher), \(lhsName), \(rhsName), \"\(labelAndName())\"))"
+
+        let captureTypeName: String
+        let additionalCompareArg: String
+        let andOr: String
+        let not: String
+        switch captureType {
+        case .capturing:
+            captureTypeName = "capturing"
+            additionalCompareArg = ", nonCapturingParamsMatch: noncapturingComparisons.allSatisfy({$0})"
+            andOr = "||"
+            not = ""
+            break
+        case .noncapturing:
+            captureTypeName = "noncapturing"
+            additionalCompareArg = ""
+            andOr = "&&"
+            not = "!"
+            break
+        }
+
+        let captureFuncName = "isCapturing"
+
+        var results = "\n"
+        results += "\(indentation)if \(not)isCapturing(\(lhsName)) \(andOr) \(not)\(captureFuncName)(\(rhsName)) {\n"
+        results += "\(indentation)\tcomparison = Parameter.compare(lhs: \(lhsName), rhs: \(rhsName), with: matcher\(additionalCompareArg))\n"
+        if captureType == .noncapturing {
+            results += "\(indentation)\tnoncapturingComparisons.append(comparison)\n"
+        }
+        results += "\(indentation)\tresults.append(Matcher.ParameterComparisonResult(comparison, \(lhsName), \(rhsName), \"\(labelAndName())\"))\n"
+        results += "\(indentation)}\n"
+        return results
     }
 
     init(_ parameter: SourceryRuntime.MethodParameter, _ variadics: [String] = []) {
@@ -686,6 +720,9 @@ class MethodWrapper {
             return "case (.\(prototype)(\(lhsParams)), .\(prototype)(\(rhsParams))):"
         }
     }
+    var generatedParams: String {
+        return parameters.map{ "lhs\($0.name.capitalized), rhs\($0.name.capitalized)" }.joined(separator: ", ")
+    }
     func equalCases() -> String {
         var results = self.equalCase
 
@@ -694,8 +731,18 @@ class MethodWrapper {
             return results
         }
 
-        results += "\n\t\t\t\tvar results: [Matcher.ParameterComparisonResult] = []\n"
-        results += parameters.map { "\t\t\t\t\($0.comparatorResult())" }.joined(separator: "\n")
+        results += "\n"
+        results += "\t\t\t\tvar noncapturingComparisons: [Bool] = []\n"
+        results += "\t\t\t\tvar comparison: Bool\n"
+        results += "\t\t\t\tvar results: [Matcher.ParameterComparisonResult] = []\n"
+        results += parameters.map {
+            // iterate over noncapturing parameters first because ArgumentCaptor needs to
+            // know if all non-capturing parameters match for one of its behavior policies
+            $0.comparatorResult(indentation: "\t\t\t\t", .noncapturing)
+        }.joined(separator: "\n")
+        results += parameters.map {
+            $0.comparatorResult(indentation: "\t\t\t\t", .capturing)
+        }.joined(separator: "\n")
         results += "\n\t\t\t\treturn Matcher.ComparisonResult(results)"
         return results
     }
@@ -1203,6 +1250,10 @@ class SubscriptWrapper {
     let genericTypesList: [String]
     let genericTypesModifier: String?
 
+    var generatedParams: String {
+        return wrapped.parameters.map{ "lhs\($0.name.capitalized), rhs\($0.name.capitalized)" }.joined(separator: ", ")
+    }
+
     private var methodAttributes: String {
         return Helpers.extractAttributes(from: self.wrapped.attributes)
     }
@@ -1306,8 +1357,19 @@ class SubscriptWrapper {
     func equalCase(_ accessor: String) -> String {
         var lhsParams = wrapped.parameters.map { "lhs\($0.name.capitalized)" }.joined(separator: ", ")
         var rhsParams = wrapped.parameters.map { "rhs\($0.name.capitalized)" }.joined(separator: ", ")
-        var comparators = "\t\t\t\tvar results: [Matcher.ParameterComparisonResult] = []\n"
-        comparators += wrappedParameters.map { "\t\t\t\t\($0.comparatorResult())" }.joined(separator: "\n")
+
+        var comparators: String = ""
+        comparators += "\t\t\t\tvar noncapturingComparisons: [Bool] = []\n"
+        comparators += "\t\t\t\tvar comparison: Bool\n"
+        comparators += "\t\t\t\tvar results: [Matcher.ParameterComparisonResult] = []\n"
+        comparators += wrappedParameters.map {
+            // iterate over noncapturing parameters first because ArgumentCaptor needs to
+            // know if all non-capturing parameters match for one of its behavior policies
+            $0.comparatorResult(indentation: "\t\t\t\t", .noncapturing)
+        }.joined(separator: "\n")
+        comparators += wrappedParameters.map {
+            $0.comparatorResult(indentation: "\t\t\t\t", .capturing)
+        }.joined(separator: "\n")
 
         if accessor == "set" {
             lhsParams += ", lhsDidSet"
@@ -1610,7 +1672,22 @@ _%>
         if scopes.contains(.given) { methodReturnValues = [] }
         if scopes.contains(.perform) { methodPerformValues = [] }
     }
-    <%_ -%>
+
+    <%_ if allMethods.count > 0 || allStaticMethods.count > 0 || allSubscripts.count > 0 { -%>
+    private static func isCapturing<T>(_ param: Parameter<T>) -> Bool {
+        switch param {
+            // can't use `case .capturing(_, _):` here because it causes an EXC_BAD_ACCESS error
+            case .value(_):
+                return false
+            case .matching(_):
+                return false
+            case ._:
+                return false
+            default:
+                return true
+        }
+    }
+    <%_ } %>
   <%# ================================================== STATIC MOCK INTERNALS -%><%_ -%>
     <%_ if conformsToStaticMock { -%>
     static var matcher: Matcher = Matcher.default

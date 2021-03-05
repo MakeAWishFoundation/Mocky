@@ -23,8 +23,11 @@ public enum Parameter<ValueType> {
     case `_`
     /// Explicit value
     case value(ValueType)
-    /// Any value matching
+    /// Any value for which the given closure returns true
     case matching((ValueType) -> Bool)
+    /// - $0: The argument captor to be used for capturing
+    /// - $1: An optional function that decides whether the value being evaluated matches or not
+    case capturing(ArgumentCaptor<ValueType>, where: ((ValueType) -> Bool)? = nil)
 
     /// Represents and matches any parameter value - syntactic sugar for `._` case.
     public static var any: Parameter<ValueType> { return Parameter<ValueType>._ }
@@ -44,6 +47,7 @@ public enum Parameter<ValueType> {
         case .value(let value as GenericAttribute): return value.shortDescription
         case .value(let value): return String(describing: value)
         case .matching: return ".matching(\(String(describing: ValueType.self)) -> Bool)"
+        case .capturing: return ".capturing(\(String(describing: ValueType.self)) -> Bool)"
         }
     }
 }
@@ -112,6 +116,7 @@ public extension Parameter where ValueType: GenericAttributeType {
         case ._: return 0
         case let .value(generic): return generic.intValue
         case .matching: return 1
+        case .capturing: return 1
         }
     }
 }
@@ -123,11 +128,12 @@ public extension Parameter {
         case ._: return 0
         case .value: return 1
         case .matching: return 1
+        case .capturing: return 1
         }
     }
 }
 
-//// MARK: - Equality
+// MARK: - Equality
 public extension Parameter {
     /// Returns whether given two parameters are matching each other, with following rules:
     ///
@@ -139,13 +145,25 @@ public extension Parameter {
     ///   - lhs: First parameter
     ///   - rhs: Second parameter
     ///   - matcher: Matcher instance
+    ///   - nonCapturingParamsMatch: Whether or not all non-capturing parameters match
     /// - Returns: true, if first is matching second
-    static func compare(lhs: Parameter<ValueType>, rhs: Parameter<ValueType>, with matcher: Matcher) -> Bool {
+    static func compare(
+        lhs: Parameter<ValueType>,
+        rhs: Parameter<ValueType>,
+        with matcher: Matcher,
+        nonCapturingParamsMatch: Bool? = nil
+    ) -> Bool {
         switch (lhs, rhs) {
         case (._, _): return true
         case (_, ._): return true
         case (.matching(let match), .value(let value)): return match(value)
         case (.value(let value), .matching(let match)): return match(value)
+        case (.capturing(let captor, let match), .value(let value)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
+        case (.value(let value), .capturing(let captor, let match)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
         case (.value(let lhsValue), .value(let rhsValue)):
             guard let compare = matcher.comparator(for: ValueType.self) else {
                 let message = "No registered comparators for \(String(describing: ValueType.self))"
@@ -206,12 +224,29 @@ public extension Parameter {
                 value: match,
                 intValue: intValue,
                 shortDescription: shortDescription,
-                compare: { (l, r, m) -> Bool in
+                compare: { (l, r, m, _) -> Bool in
                     guard let lv = l as? ((ValueType) -> Bool)  else { return false }
                     if let rv = r as? ValueType {
                         let lhs = Parameter<ValueType>.matching(lv)
                         let rhs = Parameter<ValueType>.value(rv)
                         return Parameter<ValueType>.compare(lhs: lhs, rhs: rhs, with: m)
+                    } else if let rv = r as? Mirror {
+                        return Mirror(reflecting: ValueType.self).subjectType == rv.subjectType
+                    } else {
+                        return false
+                    }
+                }
+            )
+            return Parameter<GenericAttribute>.value(attribute)
+        case .capturing(let captor, let match):
+            let attribute = GenericAttribute(
+                value: match,
+                intValue: intValue,
+                shortDescription: shortDescription,
+                compare: { (l, r, m, p) -> Bool in
+                    if let value = r as? ValueType {
+                        guard let nonCapturingParamsMatch = p else { fatalError("nonCapturingParamsMatch was nil") }
+                        return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
                     } else if let rv = r as? Mirror {
                         return Mirror(reflecting: ValueType.self).subjectType == rv.subjectType
                     } else {
@@ -231,12 +266,18 @@ public extension Parameter where ValueType: GenericAttributeType {
     ///   - lhs: one
     ///   - rhs: other
     ///   - matcher: Matcher instance used for comparison
+    ///   - nonCapturingParamsMatch: Whether or not all non-capturing parameters match
     /// - Returns: true if they are matching, false otherwise
-    static func compare(lhs: Parameter<ValueType>, rhs: Parameter<ValueType>, with matcher: Matcher) -> Bool {
+    static func compare(
+        lhs: Parameter<ValueType>,
+        rhs: Parameter<ValueType>,
+        with matcher: Matcher,
+        nonCapturingParamsMatch: Bool? = nil
+    ) -> Bool {
         switch (lhs, rhs) {
         case (._, _): return true
         case (_, ._): return true
-        case (.value(let lhsGeneric), .value(let rhsGeneric)): return lhsGeneric.compare(lhsGeneric.value,rhsGeneric.value,matcher)
+        case (.value(let lhsGeneric), .value(let rhsGeneric)): return lhsGeneric.compare(lhsGeneric.value,rhsGeneric.value,matcher,nonCapturingParamsMatch)
         default: return false
         }
     }
@@ -249,13 +290,25 @@ public extension Parameter where ValueType: Sequence, ValueType: Equatable {
     ///   - lhs: one
     ///   - rhs: other
     ///   - matcher: Matcher instance used for comparison
+    ///   - nonCapturingParamsMatch: Whether or not all non-capturing parameters match
     /// - Returns: true if they are matching, false otherwise
-    static func compare(lhs: Parameter<ValueType>, rhs: Parameter<ValueType>, with matcher: Matcher) -> Bool {
+    static func compare(
+        lhs: Parameter<ValueType>,
+        rhs: Parameter<ValueType>,
+        with matcher: Matcher,
+        nonCapturingParamsMatch: Bool? = nil
+    ) -> Bool {
         switch (lhs, rhs) {
         case (._, _): return true
         case (_, ._): return true
         case (.matching(let match), .value(let value)): return match(value)
         case (.value(let value), .matching(let match)): return match(value)
+        case (.capturing(let captor, let match), .value(let value)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
+        case (.value(let value), .capturing(let captor, let match)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
         case let (.value(left), .value(right)): return left == right
         default: return false
         }
@@ -269,13 +322,25 @@ public extension Parameter where ValueType: Sequence, ValueType.Element: Equatab
     ///   - lhs: one
     ///   - rhs: other
     ///   - matcher: Matcher instance used for comparison
+    ///   - nonCapturingParamsMatch: Whether or not all non-capturing parameters match
     /// - Returns: true if they are matching, false otherwise
-    static func compare(lhs: Parameter<ValueType>, rhs: Parameter<ValueType>, with matcher: Matcher) -> Bool {
+    static func compare(
+        lhs: Parameter<ValueType>,
+        rhs: Parameter<ValueType>,
+        with matcher: Matcher,
+        nonCapturingParamsMatch: Bool? = nil
+    ) -> Bool {
         switch (lhs, rhs) {
         case (._, _): return true
         case (_, ._): return true
         case (.matching(let match), .value(let value)): return match(value)
         case (.value(let value), .matching(let match)): return match(value)
+        case (.capturing(let captor, let match), .value(let value)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
+        case (.value(let value), .capturing(let captor, let match)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
         case (.value(let lhsSequence), .value(let rhsSequence)):
             let leftArray = lhsSequence.map { $0 }
             let rightArray = rhsSequence.map { $0 }
@@ -304,13 +369,25 @@ public extension Parameter where ValueType: Sequence, ValueType.Element: Equatab
     ///   - lhs: one
     ///   - rhs: other
     ///   - matcher: Matcher instance used for comparison
+    ///   - nonCapturingParamsMatch: Whether or not all non-capturing parameters match
     /// - Returns: true if they are matching, false otherwise
-    static func compare(lhs: Parameter<ValueType>, rhs: Parameter<ValueType>, with matcher: Matcher) -> Bool {
+    static func compare(
+        lhs: Parameter<ValueType>,
+        rhs: Parameter<ValueType>,
+        with matcher: Matcher,
+        nonCapturingParamsMatch: Bool? = nil
+    ) -> Bool {
         switch (lhs, rhs) {
         case (._, _): return true
         case (_, ._): return true
         case (.matching(let match), .value(let value)): return match(value)
         case (.value(let value), .matching(let match)): return match(value)
+        case (.capturing(let captor, let match), .value(let value)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
+        case (.value(let value), .capturing(let captor, let match)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
         case let (.value(left), .value(right)): return left == right
         default: return false
         }
@@ -326,13 +403,25 @@ public extension Parameter where ValueType: Sequence {
     ///   - lhs: one
     ///   - rhs: other
     ///   - matcher: Matcher instance used for comparison
+    ///   - nonCapturingParamsMatch: Whether or not all non-capturing parameters match
     /// - Returns: true if they are matching, false otherwise
-    static func compare(lhs: Parameter<ValueType>, rhs: Parameter<ValueType>, with matcher: Matcher) -> Bool {
+    static func compare(
+        lhs: Parameter<ValueType>,
+        rhs: Parameter<ValueType>,
+        with matcher: Matcher,
+        nonCapturingParamsMatch: Bool? = nil
+    ) -> Bool {
         switch (lhs, rhs) {
         case (._, _): return true
         case (_, ._): return true
         case (.matching(let match), .value(let value)): return match(value)
         case (.value(let value), .matching(let match)): return match(value)
+        case (.capturing(let captor, let match), .value(let value)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
+        case (.value(let value), .capturing(let captor, let match)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
         case (.value(let lhsSequence), .value(let rhsSequence)):
             let leftArray = lhsSequence.map { $0 }
             let rightArray = rhsSequence.map { $0 }
@@ -415,7 +504,25 @@ public extension Parameter where ValueType: Sequence {
                     if let rv = r as? ValueType {
                         let lhs = Parameter<ValueType>.matching(lv)
                         let rhs = Parameter<ValueType>.value(rv)
-                        return Parameter<ValueType>.compare(lhs: lhs, rhs: rhs, with: m)
+                        return Parameter<ValueType>.compare(lhs: lhs, rhs: rhs, with: m, nonCapturingParamsMatch: true)
+                    } else if let rv = r as? Mirror {
+                        return Mirror(reflecting: ValueType.self).subjectType == rv.subjectType
+                    } else {
+                        return false
+                    }
+                }
+            )
+            return Parameter<GenericAttribute>.value(attribute)
+        case .capturing(let captor, let match):
+            let attribute = GenericAttribute(
+                value: match,
+                intValue: intValue,
+                shortDescription: shortDescription,
+                compare: { (l, r, m, p) -> Bool in
+                    guard let lv = l as? ((ValueType, Bool) -> Bool)  else { return false }
+                    if let value = r as? ValueType {
+                        guard let nonCapturingParamsMatch = p else { fatalError("nonCapturingParamsMatch was nil") }
+                        return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
                     } else if let rv = r as? Mirror {
                         return Mirror(reflecting: ValueType.self).subjectType == rv.subjectType
                     } else {
@@ -435,13 +542,25 @@ public extension Parameter where ValueType: Equatable {
     ///   - lhs: one
     ///   - rhs: other
     ///   - matcher: Matcher instance used for comparison
+    ///   - nonCapturingParamsMatch: Whether or not all non-capturing parameters match
     /// - Returns: true if they are matching, false otherwise
-    static func compare(lhs: Parameter<ValueType>, rhs: Parameter<ValueType>, with matcher: Matcher) -> Bool {
+    static func compare(
+        lhs: Parameter<ValueType>,
+        rhs: Parameter<ValueType>,
+        with matcher: Matcher,
+        nonCapturingParamsMatch: Bool? = nil
+    ) -> Bool {
         switch (lhs, rhs) {
         case (._, _): return true
         case (_, ._): return true
         case (.matching(let match), .value(let value)): return match(value)
         case (.value(let value), .matching(let match)): return match(value)
+        case (.capturing(let captor, let match), .value(let value)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
+        case (.value(let value), .capturing(let captor, let match)):
+            guard let nonCapturingParamsMatch = nonCapturingParamsMatch else { fatalError("nonCapturingParamsMatch was nil") }
+            return captor.capture(value, using: match, nonCapturingParamsMatch: nonCapturingParamsMatch)
         case let (.value(left), .value(right)): return left == right
         default: return false
         }
