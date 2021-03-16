@@ -166,6 +166,12 @@ protocol ToBeMocked {
 }
 ```
 
+Or use it to protocol compositions:
+
+```swift
+typealias ToBeMocked = OneProtocol & TwoProtocols & AutoMockable
+```
+
 Every protocol in source directories, having this annotation, will be added to `Mock.generated.swift`
 
 <a name="given"></a>

@@ -1,250 +1,250 @@
 {
   "warnings": [
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Matcher.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Matcher.swift",
       "line": 195,
       "symbol": "Matcher.set(file:line:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Matcher.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Matcher.swift",
       "line": 200,
       "symbol": "Matcher.clearFileAndLine()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Matcher.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Matcher.swift",
       "line": 204,
       "symbol": "Matcher.onFatalFailure(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Mock.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Mock.swift",
       "line": 3,
       "symbol": "MockScope",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Mock.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Mock.swift",
       "line": 4,
       "symbol": "MockScope.invocation",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Mock.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Mock.swift",
       "line": 5,
       "symbol": "MockScope.given",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Mock.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Mock.swift",
       "line": 6,
       "symbol": "MockScope.perform",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Parameter.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Parameter.swift",
       "line": 41,
       "symbol": "Parameter.shortDescription",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Parameter.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Parameter.swift",
       "line": 87,
       "symbol": "OptionalType",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Parameter.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Parameter.swift",
       "line": 88,
       "symbol": "OptionalType.isNotNil",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Parameter.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Parameter.swift",
       "line": 92,
       "symbol": "Optional.isNotNil",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Parameter.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Parameter.swift",
       "line": 101,
       "symbol": "Parameter.notNil",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Stubbing.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Stubbing.swift",
       "line": 7,
       "symbol": "MockError.notStubed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Stubbing.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Stubbing.swift",
       "line": 15,
       "symbol": "StubProduct.return(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Stubbing.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Stubbing.swift",
       "line": 16,
       "symbol": "StubProduct.throw(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 4,
       "symbol": "Matcher.ComparisonResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 5,
       "symbol": "Matcher.ComparisonResult.matched",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 6,
       "symbol": "Matcher.ComparisonResult.total",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 7,
       "symbol": "Matcher.ComparisonResult.results",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 9,
       "symbol": "Matcher.ComparisonResult.percentage",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 10,
       "symbol": "Matcher.ComparisonResult.percentageString",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 11,
       "symbol": "Matcher.ComparisonResult.isFullMatch",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 12,
       "symbol": "Matcher.ComparisonResult.isMatch",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 14,
       "symbol": "Matcher.ComparisonResult.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 21,
       "symbol": "Matcher.ComparisonResult.init(matched:total:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 27,
       "symbol": "Matcher.ComparisonResult.match",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 28,
       "symbol": "Matcher.ComparisonResult.none",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 30,
       "symbol": "Matcher.ComparisonResult.resultString(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 36,
       "symbol": "Matcher.ParameterComparisonResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 42,
       "symbol": "Matcher.ParameterComparisonResult.init(_:_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 49,
       "symbol": "Matcher.ParameterComparisonResult.resultString",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 59,
       "symbol": "Utils",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/Shared/Utils.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/Shared/Utils.swift",
       "line": 61,
       "symbol": "Utils.closestCallsMessage(for:name:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/SwiftyMocky/ArgumentCaptor.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/SwiftyMocky/ArgumentCaptor.swift",
       "line": 1,
       "symbol": "ArgumentCaptor",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky/Sources/SwiftyMocky/ArgumentCaptor.swift",
+      "file": "/Users/ernesto.cambuston/workspace/SwiftyMocky/Sources/SwiftyMocky/ArgumentCaptor.swift",
       "line": 9,
       "symbol": "ArgumentCaptor.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/andrzejmichnia/Projekty/Private/SwiftyMocky"
+  "source_directory": "/Users/ernesto.cambuston/workspace/SwiftyMocky"
 }

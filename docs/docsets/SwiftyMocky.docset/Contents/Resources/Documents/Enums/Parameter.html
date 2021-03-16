@@ -8,6 +8,9 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Enum/Parameter" class="dashAnchor"></a>
@@ -16,6 +19,11 @@
       <div class="content-wrapper">
         <p><a href="../index.html">SwiftyMocky 4.0.4 Docs</a> (85% documented)</p>
         <p class="header-right"><a href="https://github.com/MakeAWishFoundation/SwiftyMocky"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -265,7 +273,19 @@
             <h1>Parameter</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Parameter</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="o">&gt;</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Parameter</span><span class="p">:</span>
+    <span class="kt">ExpressibleByStringLiteral</span><span class="p">,</span>
+    <span class="kt">ExpressibleByExtendedGraphemeClusterLiteral</span><span class="p">,</span>
+    <span class="kt">ExpressibleByUnicodeScalarLiteral</span>
+    <span class="k">where</span> <span class="kt">ValueType</span><span class="p">:</span> <span class="kt">ExpressibleByStringLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Parameter</span><span class="p">:</span> <span class="kt">ExpressibleByNilLiteral</span> <span class="k">where</span> <span class="kt">ValueType</span><span class="p">:</span> <span class="kt">ExpressibleByNilLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Parameter</span><span class="p">:</span> <span class="kt">ExpressibleByIntegerLiteral</span> <span class="k">where</span> <span class="kt">ValueType</span><span class="p">:</span> <span class="kt">ExpressibleByIntegerLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Parameter</span><span class="p">:</span> <span class="kt">ExpressibleByBooleanLiteral</span> <span class="k">where</span> <span class="kt">ValueType</span><span class="p">:</span> <span class="kt">ExpressibleByBooleanLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Parameter</span><span class="p">:</span> <span class="kt">ExpressibleByFloatLiteral</span> <span class="k">where</span> <span class="kt">ValueType</span><span class="p">:</span> <span class="kt">ExpressibleByFloatLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Parameter</span><span class="p">:</span> <span class="kt">ExpressibleByArrayLiteral</span> <span class="k">where</span> <span class="kt">ValueType</span><span class="p">:</span> <span class="kt">ExpressibleByArrayLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Parameter</span><span class="p">:</span> <span class="kt">ExpressibleByDictionaryLiteral</span> <span class="k">where</span> <span class="kt">ValueType</span><span class="p">:</span> <span class="kt">ExpressibleByDictionaryLiteral</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">.</span><span class="kt">Key</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                 </div>
               </div>
@@ -315,7 +335,7 @@ unless you register comparator for its <em>ValueType</em> in <strong>Matcher</st
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="err">`</span><span class="n">_</span><span class="err">`</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="p">`</span><span class="nv">_</span><span class="p">`</span></code></pre>
 
                         </div>
                       </div>
@@ -327,7 +347,7 @@ unless you register comparator for its <em>ValueType</em> in <strong>Matcher</st
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterO5valueyACyxGxcAEmlF"></a>
                     <a name="//apple_ref/swift/Element/value(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterO5valueyACyxGxcAEmlF">value(_:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterO5valueyACyxGxcAEmlF">value(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -354,7 +374,7 @@ unless you register comparator for its <em>ValueType</em> in <strong>Matcher</st
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterO8matchingyACyxGSbxccAEmlF"></a>
                     <a name="//apple_ref/swift/Element/matching(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterO8matchingyACyxGSbxccAEmlF">matching(_:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterO8matchingyACyxGSbxccAEmlF">matching(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -408,7 +428,7 @@ unless you register comparator for its <em>ValueType</em> in <strong>Matcher</st
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterO3anyyACyqd__Gqd__mlFZ"></a>
                     <a name="//apple_ref/swift/Method/any(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterO3anyyACyqd__Gqd__mlFZ">any(_:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterO3anyyACyqd__Gqd__mlFZ">any(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -487,112 +507,11 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
               <div class="task-name-container">
                 <a name="/Parameter%20convenience%20initializers"></a>
                 <a name="//apple_ref/swift/Section/Parameter convenience initializers" class="dashAnchor"></a>
-                <a href="#/Parameter%20convenience%20initializers">
-                  <h3 class="section-name">Parameter convenience initializers</h3>
-                </a>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:11SwiftyMocky9ParameterOAARlzClE12sameInstance2asACyxGqd___tRld__ClFZ"></a>
-                    <a name="//apple_ref/swift/Method/sameInstance(as:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAARlzClE12sameInstance2asACyxGqd___tRld__ClFZ">sameInstance(as:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Represents and matches values on an <q>same instance</q> basis.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">sameInstance</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">as</span> <span class="nv">instance</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Parameter</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>instance</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Instance to match against</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:11SwiftyMocky9ParameterOAARlzClE10isInstance2ofACyxGqd__m_tRld__ClFZ"></a>
-                    <a name="//apple_ref/swift/Method/isInstance(of:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAARlzClE10isInstance2ofACyxGqd__m_tRld__ClFZ">isInstance(of:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Represents and matches whether parameter is of specific type, using <code>is</code> operator.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">isInstance</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">of</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Parameter</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>type</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Type to match against</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Parameter%20convenience%20initializers2"></a>
-                <a name="//apple_ref/swift/Section/Parameter convenience initializers" class="dashAnchor"></a>
-                <a href="#/Parameter%20convenience%20initializers2">
-                  <h3 class="section-name">Parameter convenience initializers</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Parameter%20convenience%20initializers"></a>
+                  <h3 class="section-name"><p>Parameter convenience initializers</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -600,7 +519,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterO3allyACyxGAEd_tFZ"></a>
                     <a name="//apple_ref/swift/Method/all(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterO3allyACyxGAEd_tFZ">all(_:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterO3allyACyxGAEd_tFZ">all(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -645,87 +564,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Optionality%20checks"></a>
-                <a name="//apple_ref/swift/Section/Optionality checks" class="dashAnchor"></a>
-                <a href="#/Optionality%20checks">
-                  <h3 class="section-name">Optionality checks</h3>
-                </a>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:11SwiftyMocky9ParameterOA2A12OptionalTypeRzlE6notNilACyxGvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/notNil" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOA2A12OptionalTypeRzlE6notNilACyxGvpZ">notNil</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">notNil</span><span class="p">:</span> <span class="kt">Parameter</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
                 <a name="/Order"></a>
                 <a name="//apple_ref/swift/Section/Order" class="dashAnchor"></a>
-                <a href="#/Order">
-                  <h3 class="section-name">Order</h3>
-                </a>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:11SwiftyMocky9ParameterOA2A20GenericAttributeTypeRzlE8intValueSivp"></a>
-                    <a name="//apple_ref/swift/Property/intValue" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOA2A20GenericAttributeTypeRzlE8intValueSivp">intValue</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Used for invocations sorting purpose.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">intValue</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Order2"></a>
-                <a name="//apple_ref/swift/Section/Order" class="dashAnchor"></a>
-                <a href="#/Order2">
-                  <h3 class="section-name">Order</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Order"></a>
+                  <h3 class="section-name"><p>Order</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -755,23 +600,12 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Order3"></a>
-                <a name="//apple_ref/swift/Section/Order" class="dashAnchor"></a>
-                <a href="#/Order3">
-                  <h3 class="section-name">Order</h3>
-                </a>
-              </div>
-              <ul>
                 <li class="item">
                   <div>
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterO7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ"></a>
                     <a name="//apple_ref/swift/Method/compare(lhs:rhs:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterO7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ">compare(lhs:rhs:with:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterO7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ">compare(lhs:<wbr>rhs:<wbr>with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -881,19 +715,193 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Order4"></a>
-                <a name="//apple_ref/swift/Section/Order" class="dashAnchor"></a>
-                <a href="#/Order4">
-                  <h3 class="section-name">Order</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60AnyObject%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `AnyObject`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60AnyObject%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>AnyObject</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:11SwiftyMocky9ParameterOAARlzClE12sameInstance2asACyxGqd___tRld__ClFZ"></a>
+                    <a name="//apple_ref/swift/Method/sameInstance(as:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAARlzClE12sameInstance2asACyxGqd___tRld__ClFZ">sameInstance(as:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents and matches values on an &ldquo;same instance&rdquo; basis.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">sameInstance</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">as</span> <span class="nv">instance</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Parameter</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>instance</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Instance to match against</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11SwiftyMocky9ParameterOAARlzClE10isInstance2ofACyxGqd__m_tRld__ClFZ"></a>
+                    <a name="//apple_ref/swift/Method/isInstance(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAARlzClE10isInstance2ofACyxGqd__m_tRld__ClFZ">isInstance(of:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents and matches whether parameter is of specific type, using <code>is</code> operator.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">isInstance</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">of</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Parameter</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Type to match against</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60OptionalType%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `OptionalType`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60OptionalType%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code><a href="../Protocols/OptionalType.html">OptionalType</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11SwiftyMocky9ParameterOA2A12OptionalTypeRzlE6notNilACyxGvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/notNil" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOA2A12OptionalTypeRzlE6notNilACyxGvpZ">notNil</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">notNil</span><span class="p">:</span> <span class="kt">Parameter</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60GenericAttributeType%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `GenericAttributeType`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60GenericAttributeType%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code><a href="../Protocols/GenericAttributeType.html">GenericAttributeType</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11SwiftyMocky9ParameterOA2A20GenericAttributeTypeRzlE8intValueSivp"></a>
+                    <a name="//apple_ref/swift/Property/intValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOA2A20GenericAttributeTypeRzlE8intValueSivp">intValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used for invocations sorting purpose.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">intValue</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:11SwiftyMocky9ParameterOA2A20GenericAttributeTypeRzlE7compare3lhs3rhs4withSbACyxG_AiA7MatcherCtFZ"></a>
                     <a name="//apple_ref/swift/Method/compare(lhs:rhs:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOA2A20GenericAttributeTypeRzlE7compare3lhs3rhs4withSbACyxG_AiA7MatcherCtFZ">compare(lhs:rhs:with:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOA2A20GenericAttributeTypeRzlE7compare3lhs3rhs4withSbACyxG_AiA7MatcherCtFZ">compare(lhs:<wbr>rhs:<wbr>with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -966,11 +974,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Order5"></a>
-                <a name="//apple_ref/swift/Section/Order" class="dashAnchor"></a>
-                <a href="#/Order5">
-                  <h3 class="section-name">Order</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60Sequence%60%2C%20%60ValueType%60%3A%20%60Equatable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `Sequence`, `ValueType`: `Equatable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60Sequence%60%2C%20%60ValueType%60%3A%20%60Equatable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>Sequence</code>, <code>ValueType</code>: <code>Equatable</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -978,7 +988,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterOAASQRzSTRzlE7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ"></a>
                     <a name="//apple_ref/swift/Method/compare(lhs:rhs:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASQRzSTRzlE7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ">compare(lhs:rhs:with:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASQRzSTRzlE7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ">compare(lhs:<wbr>rhs:<wbr>with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1051,11 +1061,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Order6"></a>
-                <a name="//apple_ref/swift/Section/Order" class="dashAnchor"></a>
-                <a href="#/Order6">
-                  <h3 class="section-name">Order</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60Sequence%60%2C%20%60ValueType.Element%60%3A%20%60Equatable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `Sequence`, `ValueType.Element`: `Equatable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60Sequence%60%2C%20%60ValueType.Element%60%3A%20%60Equatable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>Sequence</code>, <code>ValueType.Element</code>: <code>Equatable</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1063,7 +1075,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterOAASTRzSQ7ElementRpzlE7compare3lhs3rhs4withSbACyxG_AjA7MatcherCtFZ"></a>
                     <a name="//apple_ref/swift/Method/compare(lhs:rhs:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASTRzSQ7ElementRpzlE7compare3lhs3rhs4withSbACyxG_AjA7MatcherCtFZ">compare(lhs:rhs:with:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASTRzSQ7ElementRpzlE7compare3lhs3rhs4withSbACyxG_AjA7MatcherCtFZ">compare(lhs:<wbr>rhs:<wbr>with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1136,11 +1148,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Order7"></a>
-                <a name="//apple_ref/swift/Section/Order" class="dashAnchor"></a>
-                <a href="#/Order7">
-                  <h3 class="section-name">Order</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60Sequence%60%2C%20%60ValueType.Element%60%3A%20%60Equatable%60%2C%20%60ValueType%60%3A%20%60Equatable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `Sequence`, `ValueType.Element`: `Equatable`, `ValueType`: `Equatable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60Sequence%60%2C%20%60ValueType.Element%60%3A%20%60Equatable%60%2C%20%60ValueType%60%3A%20%60Equatable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>Sequence</code>, <code>ValueType.Element</code>: <code>Equatable</code>, <code>ValueType</code>: <code>Equatable</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1148,7 +1162,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterOAASQRzSTRzSQ7ElementSTRpzlE7compare3lhs3rhs4withSbACyxG_AjA7MatcherCtFZ"></a>
                     <a name="//apple_ref/swift/Method/compare(lhs:rhs:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASQRzSTRzSQ7ElementSTRpzlE7compare3lhs3rhs4withSbACyxG_AjA7MatcherCtFZ">compare(lhs:rhs:with:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASQRzSTRzSQ7ElementSTRpzlE7compare3lhs3rhs4withSbACyxG_AjA7MatcherCtFZ">compare(lhs:<wbr>rhs:<wbr>with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1221,11 +1235,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Order8"></a>
-                <a name="//apple_ref/swift/Section/Order" class="dashAnchor"></a>
-                <a href="#/Order8">
-                  <h3 class="section-name">Order</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60Sequence%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `Sequence`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60Sequence%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>Sequence</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1260,7 +1276,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterOAASTRzlE7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ"></a>
                     <a name="//apple_ref/swift/Method/compare(lhs:rhs:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASTRzlE7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ">compare(lhs:rhs:with:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASTRzlE7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ">compare(lhs:<wbr>rhs:<wbr>with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1364,11 +1380,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Order9"></a>
-                <a name="//apple_ref/swift/Section/Order" class="dashAnchor"></a>
-                <a href="#/Order9">
-                  <h3 class="section-name">Order</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60Equatable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `Equatable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60Equatable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>Equatable</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1376,7 +1394,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:11SwiftyMocky9ParameterOAASQRzlE7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ"></a>
                     <a name="//apple_ref/swift/Method/compare(lhs:rhs:with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASQRzlE7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ">compare(lhs:rhs:with:)</a>
+                    <a class="token" href="#/s:11SwiftyMocky9ParameterOAASQRzlE7compare3lhs3rhs4withSbACyxG_AhA7MatcherCtFZ">compare(lhs:<wbr>rhs:<wbr>with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1449,11 +1467,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/ExpressibleByStringLiteral"></a>
-                <a name="//apple_ref/swift/Section/ExpressibleByStringLiteral" class="dashAnchor"></a>
-                <a href="#/ExpressibleByStringLiteral">
-                  <h3 class="section-name">ExpressibleByStringLiteral</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByStringLiteral%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `ExpressibleByStringLiteral`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByStringLiteral%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>ExpressibleByStringLiteral</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1539,7 +1559,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:s26ExpressibleByStringLiteralP06stringD0x0cD4TypeQz_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(stringLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s26ExpressibleByStringLiteralP06stringD0x0cD4TypeQz_tcfc">init(stringLiteral:)</a>
+                    <a class="token" href="#/s:s26ExpressibleByStringLiteralP06stringD0x0cD4TypeQz_tcfc">init(stringLiteral:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1565,7 +1585,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:s43ExpressibleByExtendedGraphemeClusterLiteralP08extendeddeF0x0cdeF4TypeQz_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(extendedGraphemeClusterLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s43ExpressibleByExtendedGraphemeClusterLiteralP08extendeddeF0x0cdeF4TypeQz_tcfc">init(extendedGraphemeClusterLiteral:)</a>
+                    <a class="token" href="#/s:s43ExpressibleByExtendedGraphemeClusterLiteralP08extendeddeF0x0cdeF4TypeQz_tcfc">init(extendedGraphemeClusterLiteral:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1591,7 +1611,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:s33ExpressibleByUnicodeScalarLiteralP07unicodedE0x0cdE4TypeQz_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(unicodeScalarLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s33ExpressibleByUnicodeScalarLiteralP07unicodedE0x0cdE4TypeQz_tcfc">init(unicodeScalarLiteral:)</a>
+                    <a class="token" href="#/s:s33ExpressibleByUnicodeScalarLiteralP07unicodedE0x0cdE4TypeQz_tcfc">init(unicodeScalarLiteral:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1616,11 +1636,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/ExpressibleByNilLiteral"></a>
-                <a name="//apple_ref/swift/Section/ExpressibleByNilLiteral" class="dashAnchor"></a>
-                <a href="#/ExpressibleByNilLiteral">
-                  <h3 class="section-name">ExpressibleByNilLiteral</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByNilLiteral%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `ExpressibleByNilLiteral`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByNilLiteral%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>ExpressibleByNilLiteral</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1628,7 +1650,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:s23ExpressibleByNilLiteralP03nilD0xyt_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(nilLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s23ExpressibleByNilLiteralP03nilD0xyt_tcfc">init(nilLiteral:)</a>
+                    <a class="token" href="#/s:s23ExpressibleByNilLiteralP03nilD0xyt_tcfc">init(nilLiteral:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1653,11 +1675,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/ExpressibleByIntegerLiteral"></a>
-                <a name="//apple_ref/swift/Section/ExpressibleByIntegerLiteral" class="dashAnchor"></a>
-                <a href="#/ExpressibleByIntegerLiteral">
-                  <h3 class="section-name">ExpressibleByIntegerLiteral</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByIntegerLiteral%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `ExpressibleByIntegerLiteral`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByIntegerLiteral%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>ExpressibleByIntegerLiteral</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1691,7 +1715,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:s27ExpressibleByIntegerLiteralP07integerD0x0cD4TypeQz_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(integerLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s27ExpressibleByIntegerLiteralP07integerD0x0cD4TypeQz_tcfc">init(integerLiteral:)</a>
+                    <a class="token" href="#/s:s27ExpressibleByIntegerLiteralP07integerD0x0cD4TypeQz_tcfc">init(integerLiteral:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1716,11 +1740,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/ExpressibleByBooleanLiteral"></a>
-                <a name="//apple_ref/swift/Section/ExpressibleByBooleanLiteral" class="dashAnchor"></a>
-                <a href="#/ExpressibleByBooleanLiteral">
-                  <h3 class="section-name">ExpressibleByBooleanLiteral</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByBooleanLiteral%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `ExpressibleByBooleanLiteral`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByBooleanLiteral%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>ExpressibleByBooleanLiteral</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1754,7 +1780,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:s27ExpressibleByBooleanLiteralP07booleanD0x0cD4TypeQz_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(booleanLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s27ExpressibleByBooleanLiteralP07booleanD0x0cD4TypeQz_tcfc">init(booleanLiteral:)</a>
+                    <a class="token" href="#/s:s27ExpressibleByBooleanLiteralP07booleanD0x0cD4TypeQz_tcfc">init(booleanLiteral:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1779,11 +1805,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/ExpressibleByFloatLiteral"></a>
-                <a name="//apple_ref/swift/Section/ExpressibleByFloatLiteral" class="dashAnchor"></a>
-                <a href="#/ExpressibleByFloatLiteral">
-                  <h3 class="section-name">ExpressibleByFloatLiteral</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByFloatLiteral%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `ExpressibleByFloatLiteral`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByFloatLiteral%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>ExpressibleByFloatLiteral</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1817,7 +1845,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:s25ExpressibleByFloatLiteralP05floatD0x0cD4TypeQz_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(floatLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s25ExpressibleByFloatLiteralP05floatD0x0cD4TypeQz_tcfc">init(floatLiteral:)</a>
+                    <a class="token" href="#/s:s25ExpressibleByFloatLiteralP05floatD0x0cD4TypeQz_tcfc">init(floatLiteral:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1842,11 +1870,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/ExpressibleByArrayLiteral"></a>
-                <a name="//apple_ref/swift/Section/ExpressibleByArrayLiteral" class="dashAnchor"></a>
-                <a href="#/ExpressibleByArrayLiteral">
-                  <h3 class="section-name">ExpressibleByArrayLiteral</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByArrayLiteral%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `ExpressibleByArrayLiteral`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByArrayLiteral%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>ExpressibleByArrayLiteral</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1880,7 +1910,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:s25ExpressibleByArrayLiteralP05arrayD0x0cD7ElementQzd_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(arrayLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s25ExpressibleByArrayLiteralP05arrayD0x0cD7ElementQzd_tcfc">init(arrayLiteral:)</a>
+                    <a class="token" href="#/s:s25ExpressibleByArrayLiteralP05arrayD0x0cD7ElementQzd_tcfc">init(arrayLiteral:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1905,11 +1935,13 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/ExpressibleByDictionaryLiteral"></a>
-                <a name="//apple_ref/swift/Section/ExpressibleByDictionaryLiteral" class="dashAnchor"></a>
-                <a href="#/ExpressibleByDictionaryLiteral">
-                  <h3 class="section-name">ExpressibleByDictionaryLiteral</h3>
-                </a>
+                <a name="/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByDictionaryLiteral%60%2C%20%60ValueType.Key%60%3A%20%60Hashable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ValueType`: `ExpressibleByDictionaryLiteral`, `ValueType.Key`: `Hashable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ValueType%60%3A%20%60ExpressibleByDictionaryLiteral%60%2C%20%60ValueType.Key%60%3A%20%60Hashable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>ValueType</code>: <code>ExpressibleByDictionaryLiteral</code>, <code>ValueType.Key</code>: <code>Hashable</code></p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1969,7 +2001,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
                     <code>
                     <a name="/s:s30ExpressibleByDictionaryLiteralP010dictionaryD0x3KeyQz_5ValueQztd_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(dictionaryLiteral:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s30ExpressibleByDictionaryLiteralP010dictionaryD0x3KeyQz_5ValueQztd_tcfc">init(dictionaryLiteral:)</a>
+                    <a class="token" href="#/s:s30ExpressibleByDictionaryLiteralP010dictionaryD0x3KeyQz_5ValueQztd_tcfc">init(dictionaryLiteral:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1996,7 +2028,7 @@ wrapped <em>ValueType</em> type, to resolve ambiguity between methods with same 
         </section>
         <section id="footer">
           <p>Copyright © 2017 MakeAWishFoundation. All rights reserved.</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -41,3 +41,5 @@ protocol ComplicatedServiceType: SampleServiceType, SimpleServiceType {
     func serviceName() -> String
     func aNewWayToSayHooray() -> Void
 }
+
+typealias ComposedService = SampleServiceType & SimpleServiceType & AutoMockable

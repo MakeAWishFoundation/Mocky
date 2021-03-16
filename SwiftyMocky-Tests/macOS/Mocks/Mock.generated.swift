@@ -6,7 +6,6 @@
 
 import SwiftyMocky
 import XCTest
-import Foundation
 @testable import Mocky_Example_macOS
 
 // MARK: - AMassiveTestProtocol
@@ -15658,6 +15657,441 @@ open class WithConflictingNameMock: WithConflictingName, Mock {
 
     private func addInvocation(_ call: MethodType) {
         self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
+// MARK: - ComposedService
+
+open class ComposedServiceMock: ComposedService, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+    public var youCouldOnlyGetThis: String {
+		get {	invocations.append(.p_youCouldOnlyGetThis_get); return __p_youCouldOnlyGetThis ?? givenGetterValue(.p_youCouldOnlyGetThis_get, "ComposedServiceMock - stub value for youCouldOnlyGetThis was not defined") }
+	}
+	private var __p_youCouldOnlyGetThis: (String)?
+
+
+
+
+
+    open func serviceName() -> String {
+        addInvocation(.m_serviceName)
+		let perform = methodPerformValue(.m_serviceName) as? () -> Void
+		perform?()
+		var __value: String
+		do {
+		    __value = try methodReturnValue(.m_serviceName).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for serviceName(). Use given")
+			Failure("Stub return value not specified for serviceName(). Use given")
+		}
+		return __value
+    }
+
+    open func getPoint(from point: Point) -> Point {
+        addInvocation(.m_getPoint__from_point(Parameter<Point>.value(`point`)))
+		let perform = methodPerformValue(.m_getPoint__from_point(Parameter<Point>.value(`point`))) as? (Point) -> Void
+		perform?(`point`)
+		var __value: Point
+		do {
+		    __value = try methodReturnValue(.m_getPoint__from_point(Parameter<Point>.value(`point`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getPoint(from point: Point). Use given")
+			Failure("Stub return value not specified for getPoint(from point: Point). Use given")
+		}
+		return __value
+    }
+
+    open func getPoint(from tuple: (Float,Float)) -> Point {
+        addInvocation(.m_getPoint__from_tuple(Parameter<(Float,Float)>.value(`tuple`)))
+		let perform = methodPerformValue(.m_getPoint__from_tuple(Parameter<(Float,Float)>.value(`tuple`))) as? ((Float,Float)) -> Void
+		perform?(`tuple`)
+		var __value: Point
+		do {
+		    __value = try methodReturnValue(.m_getPoint__from_tuple(Parameter<(Float,Float)>.value(`tuple`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getPoint(from tuple: (Float,Float)). Use given")
+			Failure("Stub return value not specified for getPoint(from tuple: (Float,Float)). Use given")
+		}
+		return __value
+    }
+
+    open func similarMethodThatDiffersOnType(_ value: Float) -> Bool {
+        addInvocation(.m_similarMethodThatDiffersOnType__value_1(Parameter<Float>.value(`value`)))
+		let perform = methodPerformValue(.m_similarMethodThatDiffersOnType__value_1(Parameter<Float>.value(`value`))) as? (Float) -> Void
+		perform?(`value`)
+		var __value: Bool
+		do {
+		    __value = try methodReturnValue(.m_similarMethodThatDiffersOnType__value_1(Parameter<Float>.value(`value`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for similarMethodThatDiffersOnType(_ value: Float). Use given")
+			Failure("Stub return value not specified for similarMethodThatDiffersOnType(_ value: Float). Use given")
+		}
+		return __value
+    }
+
+    open func similarMethodThatDiffersOnType(_ value: Point) -> Bool {
+        addInvocation(.m_similarMethodThatDiffersOnType__value_2(Parameter<Point>.value(`value`)))
+		let perform = methodPerformValue(.m_similarMethodThatDiffersOnType__value_2(Parameter<Point>.value(`value`))) as? (Point) -> Void
+		perform?(`value`)
+		var __value: Bool
+		do {
+		    __value = try methodReturnValue(.m_similarMethodThatDiffersOnType__value_2(Parameter<Point>.value(`value`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for similarMethodThatDiffersOnType(_ value: Point). Use given")
+			Failure("Stub return value not specified for similarMethodThatDiffersOnType(_ value: Point). Use given")
+		}
+		return __value
+    }
+
+    open func methodWithTypedef(_ scalar: Scalar) {
+        addInvocation(.m_methodWithTypedef__scalar(Parameter<Scalar>.value(`scalar`)))
+		let perform = methodPerformValue(.m_methodWithTypedef__scalar(Parameter<Scalar>.value(`scalar`))) as? (Scalar) -> Void
+		perform?(`scalar`)
+    }
+
+    open func methodWithClosures(success function: LinearFunction) -> ClosureFabric {
+        addInvocation(.m_methodWithClosures__success_function_1(Parameter<LinearFunction>.value(`function`)))
+		let perform = methodPerformValue(.m_methodWithClosures__success_function_1(Parameter<LinearFunction>.value(`function`))) as? (LinearFunction) -> Void
+		perform?(`function`)
+		var __value: ClosureFabric
+		do {
+		    __value = try methodReturnValue(.m_methodWithClosures__success_function_1(Parameter<LinearFunction>.value(`function`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for methodWithClosures(success function: LinearFunction). Use given")
+			Failure("Stub return value not specified for methodWithClosures(success function: LinearFunction). Use given")
+		}
+		return __value
+    }
+
+    open func methodWithClosures(success function: ((Scalar,Scalar) -> Scalar)?) -> ((Int) -> Void) {
+        addInvocation(.m_methodWithClosures__success_function_2(Parameter<((Scalar,Scalar) -> Scalar)?>.any))
+		let perform = methodPerformValue(.m_methodWithClosures__success_function_2(Parameter<((Scalar,Scalar) -> Scalar)?>.any)) as? (((Scalar,Scalar) -> Scalar)?) -> Void
+		perform?(`function`)
+		var __value: (Int) -> Void
+		do {
+		    __value = try methodReturnValue(.m_methodWithClosures__success_function_2(Parameter<((Scalar,Scalar) -> Scalar)?>.any)).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for methodWithClosures(success function: ((Scalar,Scalar) -> Scalar)?). Use given")
+			Failure("Stub return value not specified for methodWithClosures(success function: ((Scalar,Scalar) -> Scalar)?). Use given")
+		}
+		return __value
+    }
+
+
+    fileprivate enum MethodType {
+        case m_serviceName
+        case m_getPoint__from_point(Parameter<Point>)
+        case m_getPoint__from_tuple(Parameter<(Float,Float)>)
+        case m_similarMethodThatDiffersOnType__value_1(Parameter<Float>)
+        case m_similarMethodThatDiffersOnType__value_2(Parameter<Point>)
+        case m_methodWithTypedef__scalar(Parameter<Scalar>)
+        case m_methodWithClosures__success_function_1(Parameter<LinearFunction>)
+        case m_methodWithClosures__success_function_2(Parameter<((Scalar,Scalar) -> Scalar)?>)
+        case p_youCouldOnlyGetThis_get
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_serviceName, .m_serviceName): return .match
+
+            case (.m_getPoint__from_point(let lhsPoint), .m_getPoint__from_point(let rhsPoint)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPoint, rhs: rhsPoint, with: matcher), lhsPoint, rhsPoint, "from point"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_getPoint__from_tuple(let lhsTuple), .m_getPoint__from_tuple(let rhsTuple)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTuple, rhs: rhsTuple, with: matcher), lhsTuple, rhsTuple, "from tuple"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_similarMethodThatDiffersOnType__value_1(let lhsValue), .m_similarMethodThatDiffersOnType__value_1(let rhsValue)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "_ value"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_similarMethodThatDiffersOnType__value_2(let lhsValue), .m_similarMethodThatDiffersOnType__value_2(let rhsValue)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "_ value"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_methodWithTypedef__scalar(let lhsScalar), .m_methodWithTypedef__scalar(let rhsScalar)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScalar, rhs: rhsScalar, with: matcher), lhsScalar, rhsScalar, "_ scalar"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_methodWithClosures__success_function_1(let lhsFunction), .m_methodWithClosures__success_function_1(let rhsFunction)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFunction, rhs: rhsFunction, with: matcher), lhsFunction, rhsFunction, "success function"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_methodWithClosures__success_function_2(let lhsFunction), .m_methodWithClosures__success_function_2(let rhsFunction)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFunction, rhs: rhsFunction, with: matcher), lhsFunction, rhsFunction, "success function"))
+				return Matcher.ComparisonResult(results)
+            case (.p_youCouldOnlyGetThis_get,.p_youCouldOnlyGetThis_get): return Matcher.ComparisonResult.match
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case .m_serviceName: return 0
+            case let .m_getPoint__from_point(p0): return p0.intValue
+            case let .m_getPoint__from_tuple(p0): return p0.intValue
+            case let .m_similarMethodThatDiffersOnType__value_1(p0): return p0.intValue
+            case let .m_similarMethodThatDiffersOnType__value_2(p0): return p0.intValue
+            case let .m_methodWithTypedef__scalar(p0): return p0.intValue
+            case let .m_methodWithClosures__success_function_1(p0): return p0.intValue
+            case let .m_methodWithClosures__success_function_2(p0): return p0.intValue
+            case .p_youCouldOnlyGetThis_get: return 0
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_serviceName: return ".serviceName()"
+            case .m_getPoint__from_point: return ".getPoint(from:)"
+            case .m_getPoint__from_tuple: return ".getPoint(from:)"
+            case .m_similarMethodThatDiffersOnType__value_1: return ".similarMethodThatDiffersOnType(_:)"
+            case .m_similarMethodThatDiffersOnType__value_2: return ".similarMethodThatDiffersOnType(_:)"
+            case .m_methodWithTypedef__scalar: return ".methodWithTypedef(_:)"
+            case .m_methodWithClosures__success_function_1: return ".methodWithClosures(success:)"
+            case .m_methodWithClosures__success_function_2: return ".methodWithClosures(success:)"
+            case .p_youCouldOnlyGetThis_get: return "[get] .youCouldOnlyGetThis"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+        public static func youCouldOnlyGetThis(getter defaultValue: String...) -> PropertyStub {
+            return Given(method: .p_youCouldOnlyGetThis_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+
+        public static func serviceName(willReturn: String...) -> MethodStub {
+            return Given(method: .m_serviceName, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getPoint(from point: Parameter<Point>, willReturn: Point...) -> MethodStub {
+            return Given(method: .m_getPoint__from_point(`point`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getPoint(from tuple: Parameter<(Float,Float)>, willReturn: Point...) -> MethodStub {
+            return Given(method: .m_getPoint__from_tuple(`tuple`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func similarMethodThatDiffersOnType(_ value: Parameter<Float>, willReturn: Bool...) -> MethodStub {
+            return Given(method: .m_similarMethodThatDiffersOnType__value_1(`value`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func similarMethodThatDiffersOnType(_ value: Parameter<Point>, willReturn: Bool...) -> MethodStub {
+            return Given(method: .m_similarMethodThatDiffersOnType__value_2(`value`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func methodWithClosures(success function: Parameter<LinearFunction>, willReturn: ClosureFabric...) -> MethodStub {
+            return Given(method: .m_methodWithClosures__success_function_1(`function`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func methodWithClosures(success function: Parameter<((Scalar,Scalar) -> Scalar)?>, willReturn: (Int) -> Void...) -> MethodStub {
+            return Given(method: .m_methodWithClosures__success_function_2(`function`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func serviceName(willProduce: (Stubber<String>) -> Void) -> MethodStub {
+            let willReturn: [String] = []
+			let given: Given = { return Given(method: .m_serviceName, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (String).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func getPoint(from point: Parameter<Point>, willProduce: (Stubber<Point>) -> Void) -> MethodStub {
+            let willReturn: [Point] = []
+			let given: Given = { return Given(method: .m_getPoint__from_point(`point`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Point).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func getPoint(from tuple: Parameter<(Float,Float)>, willProduce: (Stubber<Point>) -> Void) -> MethodStub {
+            let willReturn: [Point] = []
+			let given: Given = { return Given(method: .m_getPoint__from_tuple(`tuple`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Point).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func similarMethodThatDiffersOnType(_ value: Parameter<Float>, willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
+            let willReturn: [Bool] = []
+			let given: Given = { return Given(method: .m_similarMethodThatDiffersOnType__value_1(`value`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Bool).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func similarMethodThatDiffersOnType(_ value: Parameter<Point>, willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
+            let willReturn: [Bool] = []
+			let given: Given = { return Given(method: .m_similarMethodThatDiffersOnType__value_2(`value`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Bool).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func methodWithClosures(success function: Parameter<LinearFunction>, willProduce: (Stubber<ClosureFabric>) -> Void) -> MethodStub {
+            let willReturn: [ClosureFabric] = []
+			let given: Given = { return Given(method: .m_methodWithClosures__success_function_1(`function`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (ClosureFabric).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func methodWithClosures(success function: Parameter<((Scalar,Scalar) -> Scalar)?>, willProduce: (Stubber<(Int) -> Void>) -> Void) -> MethodStub {
+            let willReturn: [(Int) -> Void] = []
+			let given: Given = { return Given(method: .m_methodWithClosures__success_function_2(`function`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: ((Int) -> Void).self)
+			willProduce(stubber)
+			return given
+        }
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func serviceName() -> Verify { return Verify(method: .m_serviceName)}
+        public static func getPoint(from point: Parameter<Point>) -> Verify { return Verify(method: .m_getPoint__from_point(`point`))}
+        public static func getPoint(from tuple: Parameter<(Float,Float)>) -> Verify { return Verify(method: .m_getPoint__from_tuple(`tuple`))}
+        public static func similarMethodThatDiffersOnType(_ value: Parameter<Float>) -> Verify { return Verify(method: .m_similarMethodThatDiffersOnType__value_1(`value`))}
+        public static func similarMethodThatDiffersOnType(_ value: Parameter<Point>) -> Verify { return Verify(method: .m_similarMethodThatDiffersOnType__value_2(`value`))}
+        public static func methodWithTypedef(_ scalar: Parameter<Scalar>) -> Verify { return Verify(method: .m_methodWithTypedef__scalar(`scalar`))}
+        public static func methodWithClosures(success function: Parameter<LinearFunction>) -> Verify { return Verify(method: .m_methodWithClosures__success_function_1(`function`))}
+        public static func methodWithClosures(success function: Parameter<((Scalar,Scalar) -> Scalar)?>) -> Verify { return Verify(method: .m_methodWithClosures__success_function_2(`function`))}
+        public static var youCouldOnlyGetThis: Verify { return Verify(method: .p_youCouldOnlyGetThis_get) }
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func serviceName(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_serviceName, performs: perform)
+        }
+        public static func getPoint(from point: Parameter<Point>, perform: @escaping (Point) -> Void) -> Perform {
+            return Perform(method: .m_getPoint__from_point(`point`), performs: perform)
+        }
+        public static func getPoint(from tuple: Parameter<(Float,Float)>, perform: @escaping ((Float,Float)) -> Void) -> Perform {
+            return Perform(method: .m_getPoint__from_tuple(`tuple`), performs: perform)
+        }
+        public static func similarMethodThatDiffersOnType(_ value: Parameter<Float>, perform: @escaping (Float) -> Void) -> Perform {
+            return Perform(method: .m_similarMethodThatDiffersOnType__value_1(`value`), performs: perform)
+        }
+        public static func similarMethodThatDiffersOnType(_ value: Parameter<Point>, perform: @escaping (Point) -> Void) -> Perform {
+            return Perform(method: .m_similarMethodThatDiffersOnType__value_2(`value`), performs: perform)
+        }
+        public static func methodWithTypedef(_ scalar: Parameter<Scalar>, perform: @escaping (Scalar) -> Void) -> Perform {
+            return Perform(method: .m_methodWithTypedef__scalar(`scalar`), performs: perform)
+        }
+        public static func methodWithClosures(success function: Parameter<LinearFunction>, perform: @escaping (LinearFunction) -> Void) -> Perform {
+            return Perform(method: .m_methodWithClosures__success_function_1(`function`), performs: perform)
+        }
+        public static func methodWithClosures(success function: Parameter<((Scalar,Scalar) -> Scalar)?>, perform: @escaping (((Scalar,Scalar) -> Scalar)?) -> Void) -> Perform {
+            return Perform(method: .m_methodWithClosures__success_function_2(`function`), performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        invocations.append(call)
     }
     private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
         matcher.set(file: self.file, line: self.line)

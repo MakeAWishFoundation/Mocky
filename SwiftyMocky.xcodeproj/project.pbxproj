@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		023E5B0925ECD4B400B975CD /* ComposedServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023E5B0825ECD4B400B975CD /* ComposedServiceTests.swift */; };
+		023E5B0A25ECD4B400B975CD /* ComposedServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023E5B0825ECD4B400B975CD /* ComposedServiceTests.swift */; };
+		023E5B0B25ECD4B400B975CD /* ComposedServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023E5B0825ECD4B400B975CD /* ComposedServiceTests.swift */; };
 		1D5310CA3DE7147ACC9E7E26 /* Pods_Mocky_Tests_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64EF60CBE53D81700C87FB82 /* Pods_Mocky_Tests_tvOS.framework */; };
 		5CB0B098232DC176CC9CACD8 /* Pods_Mocky_Example_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C9BECF310A1D4EDD384137 /* Pods_Mocky_Example_tvOS.framework */; };
 		66087FEBDA538F4C138743F2 /* Pods_Mocky_Example_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4B259245C7FB13CDFFCEC0 /* Pods_Mocky_Example_iOS.framework */; };
@@ -275,6 +278,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		023E5B0825ECD4B400B975CD /* ComposedServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposedServiceTests.swift; sourceTree = "<group>"; };
 		246A92EED69C0F4A7DB30FEC /* Pods-Mocky_Example_macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mocky_Example_macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mocky_Example_macOS/Pods-Mocky_Example_macOS.release.xcconfig"; sourceTree = "<group>"; };
 		2A4B259245C7FB13CDFFCEC0 /* Pods_Mocky_Example_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mocky_Example_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44584DB014A47595C33FBF7B /* Pods-Mocky_Tests_macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mocky_Tests_macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mocky_Tests_macOS/Pods-Mocky_Tests_macOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -924,6 +928,7 @@
 				CCCB8A9C249C0B46003CA85F /* UnnamedAttributesTests.swift */,
 				CCCB8AA0249C1024003CA85F /* ProtocolWithAttributesTests.swift */,
 				CC52E7C624CA52490018084B /* VariadicParametersTests.swift */,
+				023E5B0825ECD4B400B975CD /* ComposedServiceTests.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1565,6 +1570,7 @@
 				CC07C93722C372D0007F4162 /* MatcherTests.swift in Sources */,
 				CC0955672379BE4D00891A47 /* SuggestionRepositoryTests.swift in Sources */,
 				CCC5CABE215F8A6F00D29291 /* EdgeCasesTests.swift in Sources */,
+				023E5B0A25ECD4B400B975CD /* ComposedServiceTests.swift in Sources */,
 				CC0935FC25F1A2220097469F /* MultiThreadAccessTests.swift in Sources */,
 				CC52E7C824CA52490018084B /* VariadicParametersTests.swift in Sources */,
 				CCE351511FCC0B8200A76C4C /* ProtocolWithStaticMembersTests.swift in Sources */,
@@ -1658,6 +1664,7 @@
 				CCE3514C1FCC0B8200A76C4C /* ProtocolsWithCollectionsTests.swift in Sources */,
 				CCE3515E1FCC0B8F00A76C4C /* ItemsRepositoryMock.swift in Sources */,
 				CCE351481FCC0B8200A76C4C /* ProtocolsWithGenericsTests.swift in Sources */,
+				023E5B0925ECD4B400B975CD /* ComposedServiceTests.swift in Sources */,
 				CC07C93622C372D0007F4162 /* MatcherTests.swift in Sources */,
 				CCE351461FCC0B8200A76C4C /* ExampleTests.swift in Sources */,
 				CC0935F325F1A2220097469F /* MultiThreadAccessTests.swift in Sources */,
@@ -1743,6 +1750,7 @@
 				CC07C93822C372D0007F4162 /* MatcherTests.swift in Sources */,
 				CC0955682379BE4D00891A47 /* SuggestionRepositoryTests.swift in Sources */,
 				CCC5CABF215F8A6F00D29291 /* EdgeCasesTests.swift in Sources */,
+				023E5B0B25ECD4B400B975CD /* ComposedServiceTests.swift in Sources */,
 				CC09360525F1A2230097469F /* MultiThreadAccessTests.swift in Sources */,
 				CC52E7C924CA52490018084B /* VariadicParametersTests.swift in Sources */,
 				CC5B61E51FCC18D0007FB209 /* SampleServiceTests.swift in Sources */,

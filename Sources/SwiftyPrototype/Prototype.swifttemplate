@@ -1531,6 +1531,7 @@ _%>
 <%# ================================================== SETUP -%><%_ -%>
 <%_ var all = types.all
     all += types.protocols.map { $0 }
+    all += types.protocolCompositions.map { $0 }
     var mockedCount = 0
 -%>
 

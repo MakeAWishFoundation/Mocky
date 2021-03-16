@@ -41,7 +41,7 @@ Check out [guides][link-guides-contents], or full [documentation][link-docs]
 
 **SwiftyMocky** is Lightweight, strongly typed framework for Mockito-like unit testing experience. As Swift doesn't support reflections well enough to allow building mocks in runtime, library depends on [Sourcery](https://github.com/krzysztofzablocki/Sourcery), that scans your source code and **generates Mocks Swift code for you!**
 
-The idea of **SwiftyMocky** is to automatically mock Swift protocols. The main features are:
+The idea of **SwiftyMocky** is to automatically mock Swift protocols and protocol compositions. The main features are:
 
  - easy syntax, utilising full power of auto-complete, which makes writing test easier and faster
  - **we DO support generics**
@@ -185,6 +185,12 @@ Alternatively, mark protocols that are meant to be mocked with sourcery annotati
 protocol ToBeMocked {
   // ...
 }
+```
+
+Or use it to protocol compositions:
+
+```swift
+typealias ToBeMocked = OneProtocol & TwoProtocols & AutoMockable
 ```
 
 Every protocol in source directories, having this annotation, will be added to `Mock.generated.swift`
