@@ -39,6 +39,10 @@ func stringArray(fromArguments arguments: [String: Any], forKey key: String) -> 
 _%>
 // Generated with SwiftyPrototype 4.0.4
 
+<%_ for rule in swiftLintRules(argument) { -%>
+    <%_ %><%= rule %>
+<%_ } -%>
+
 import SwiftyPrototype
 <%# ================================================== IMPORTS -%><%_ -%>
     <%_ for projectImport in projectImports(argument) { -%>
